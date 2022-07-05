@@ -1074,6 +1074,9 @@ bool IGFX::wrapAcceleratorStart(IOService *that, IOService *provider) {
 	if (callbackIGFX->forceSKLAsKBL) {
 		DBGLOG("igfx", "disabling VP9 hw decode support on Skylake when using KBL kexts");
 		that->removeProperty("IOGVAXDecode");
+		
+		DBGLOG("igfx", "drop HEVCDecodeCapabilities to fix HEVC playback on Skylake when using KBL kexts");
+ 		that->removeProperty("IOGVAHEVCDecodeCapabilities");
 	}
 
 	bool ret = FunctionCast(wrapAcceleratorStart, callbackIGFX->orgAcceleratorStart)(that, provider);
